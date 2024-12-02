@@ -170,3 +170,4 @@ D:\HK1_2024_2025\QuanLyRapChieuPhim\obj\Debug\net8.0\refint\QuanLyRapChieuPhim.d
 D:\HK1_2024_2025\QuanLyRapChieuPhim\obj\Debug\net8.0\QuanLyRapChieuPhim.pdb
 D:\HK1_2024_2025\QuanLyRapChieuPhim\obj\Debug\net8.0\QuanLyRapChieuPhim.genruntimeconfig.cache
 D:\HK1_2024_2025\QuanLyRapChieuPhim\obj\Debug\net8.0\ref\QuanLyRapChieuPhim.dll
+D:\HK1_2024_2025\QuanLyRapChieuPhim\obj\Debug\net8.0\QuanLyRapChieuPhim.sourcelink.json

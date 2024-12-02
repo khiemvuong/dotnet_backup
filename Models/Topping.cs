@@ -10,6 +10,7 @@ public partial class Topping
     public string? TenTp { get; set; }
 
     public int? Gia { get; set; }
+    public string? HinhAnh { get; set; }
 
     public virtual ICollection<Cttp> Cttps { get; set; } = new List<Cttp>();
 }

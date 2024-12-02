@@ -43,9 +43,7 @@ namespace QuanLyRapChieuPhim.Controllers
             }catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-            } 
-            
-            
+            }                        
         }
 
         [HttpDelete]
@@ -63,9 +61,7 @@ namespace QuanLyRapChieuPhim.Controllers
             }catch(Exception ex)
             {
                 return BadRequest(ex.Message);
-            } 
-            
-            
+            }                        
         }
 
         [HttpPut]
