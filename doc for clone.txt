@@ -1,0 +1,12 @@
+clone project
+cập nhật thư viện: trên headbar-> tools->nuget package manager-> dòng số 2-> updates -> select all packages (bỏ những thằng nó 
+có dấu chấm than màu vàng)
+database: 
++ sql sever: tạo database tên CinemaOnline-> kết nối server vào vs
++ trên headbar-> tools->nuget package console-> nhập lệnh
+	. Add-Migration abc
+	. Update-Database
+build project:
+_ user page: xem phim , đặt vé phim (chưa hoàn thành)
+_ admin dashboard: đổi url thành http://localhost:63570/Admin -> tk: admin, mk: qwe123.
+-> quản lí 
