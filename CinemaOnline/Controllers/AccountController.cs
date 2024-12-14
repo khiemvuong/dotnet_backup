@@ -131,7 +131,7 @@ namespace CinemaOnline.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            else 
+            else
             {
                 var user = CookiesManage.GetUser();
 
@@ -167,7 +167,7 @@ namespace CinemaOnline.Controllers
                     if (account != null)
                     {
                         //đăng nhập thành công
-                        var cookieClient = account.FullName + "|" + host.ToLower() + "|" + account.Id;
+                        var cookieClient = account.Username + "|" + host.ToLower() + "|" + account.Id;
                         var decodeCookieClient = CryptorEngine.Encrypt(cookieClient, true);
                         var userCookie = new HttpCookie(CookiesKey.Client)
                         {
