@@ -148,7 +148,7 @@
                     <p class="movie__option"><strong>Giá vé: </strong>@Model.Price.ToString("##,###") đ</p>
 
                     <div class="movie__btns">
-                        <a href="#movie-calendar" class="btn btn-md btn--warning">Đặt vé</a>
+                        <a href="/Bookticket/ReserveSeat?movieCalendarId=@ViewBag.calendarMovie.Id" class="btn btn-md btn--warning">Đặt vé</a>
                         <a href="#" class="watchlist">Add to watchlist</a>
                     </div>
 
