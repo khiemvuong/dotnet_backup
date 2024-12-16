@@ -113,7 +113,7 @@
             <div class="row">
                 <!-- Pagination -->
                 <div class="Page navigation text-center">
-                    @Html.PagedListPager(Model, page => "/" + "admin/movieCalendar" + "?page=" + page)
+                    @Html.PagedListPager(Model, page => "/" + "admin/movieCalendar" + "?page=" + page + "&roomId=" + ViewBag.RoomId)
                 </div>
             </div>
         </div>

@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using BELibrary.Core.Entity;
 using BELibrary.DbContext;
+using BELibrary.Entity;
 using BELibrary.Models.View;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -61,6 +63,8 @@ namespace CinemaOnline.Controllers
                     }
                     var filmView = Mapper.Map<FilmView>(film);
                     filmView.FilmMovieTypes = workScope.FilmMovieTypes.GetListFilmMovieType(film.Id);
+                    MovieCalendar calendar= workScope.MovieCalendars.Find(MovieCalendar => MovieCalendar.FilmId == filmView.Id).First();
+                    ViewBag.calendarMovie = calendar;
                     return View(filmView);
                 }
                 else
