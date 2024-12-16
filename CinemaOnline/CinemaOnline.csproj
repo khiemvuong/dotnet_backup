@@ -2262,6 +2262,7 @@
     <Content Include="Content\images\logo-dark.png" />
     <Content Include="Content\images\logo-lg.png" />
     <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\m-icon.png" />
     <Content Include="Content\images\movie\movie-img1-lg.jpg" />
     <Content Include="Content\images\movie\movie-img1.jpg" />
     <Content Include="Content\images\movie\movie-img2-lg.jpg" />
