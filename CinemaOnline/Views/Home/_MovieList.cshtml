@@ -1,24 +1,81 @@
-﻿
-@model List<BELibrary.Models.View.FilmView>
-<div class="row">
-    @for (int i = 0; i < Model.Count; i++)
-    {
-        var item = Model[i];
-        <div class="col-md-6 movie movie--test @(i % 2 == 0 ? "movie--test--light movie--test--left" : "movie--test--dark movie--test--right")">
-            <div class="movie__images">
-                <a href="/film/detail?id=@item.Id" class="movie-beta__link">
-                    <img alt="@item.Name" src="@item.Image" />
-                </a>
-            </div>
-            <div class="movie__info">
-                <a href="/film/detail?id=@item.Id" class="movie__title">@item.Name</a>
-                <p class="movie__time">@item.Time min</p>
-                <p class="movie__option">@string.Join(" | ", item.FilmMovieTypes.Select(type => $"<a href='/Film/Search?category={type}'>{type}</a>"))</p>
-                <div class="movie__rate">
-                    <span class="movie__rating">4.1</span>
+﻿@using BELibrary.Models.View
+
+@{
+    var bestChoices = (List<FilmView>)ViewBag.BestChoices;
+    var films = (List<FilmView>)ViewBag.Films;
+}
+
+
+<div class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-8 col-md-9">
+            <!-- Movie variant with time -->
+            @{
+                bool isLeft = true;
+                int i = 0;
+                foreach (var item in films)
+                {
+
+                    <div class="col-md-6 movie movie--test @(isLeft?"movie--test--light movie--test--left":"movie--test--dark movie--test--right")">
+                        <div class="movie__images fix">
+                            <a href="/film/detail?id=@item.Id" class="movie-beta__link">
+                                <img alt='@item.Name' src="@item.Image">
+                            </a>
+                        </div>
+                        <div class="movie__info">
+                            <a href='/film/detail?id=@item.Id' class="movie__title">@item.Name  </a>
+
+                            <p class="movie__time">@(item.Time != null ? item.Time.ToString() : "") min</p>
+
+                            <p class="movie__option">
+                                @{
+                                    if (item.FilmMovieTypes.Count > 0)
+                                    {
+                                        var last = item.FilmMovieTypes.Last();
+                                        foreach (var ftype in item.FilmMovieTypes)
+                                        {
+                                            if (ftype.Equals(last))
+                                            {
+                                                <a href="/Film/Search?category=@ftype"> @ftype</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="/Film/Search?category=@ftype">@(ftype + " | ")</a>
+                                            }
+                                        }
+                                    }
+                                }
+                            </p>
+                            <div class="movie__rate">
+                                <div class="score"></div>
+                                <span class="movie__rating">4.1</span>
+                            </div>
+                        </div>
+                    </div>
+                    i++;
+                    if (i % 2 == 0)
+                    {
+
+                        isLeft = !isLeft;
+                    }
+                }
+            }
+        </div>
+
+        <aside class="col-sm-4 col-md-3">
+            <div class="sitebar first-banner--left">
+                <div class="banner-wrap first-banner--left">
+                    <img alt='banner' src="~/Content/images/banners/sale.jpg">
+                </div>
+
+                <div class="banner-wrap">
+                    <img alt='banner' src="~/Content/images/banners/sport.jpg">
+                </div>
+
+                <div class="banner-wrap banner-wrap--last">
+                    <img alt='banner' src="~/Content/images/banners/boots.jpg">
                 </div>
             </div>
-        </div>
-    }
-    }
+        </aside>
+    </div>
 </div>

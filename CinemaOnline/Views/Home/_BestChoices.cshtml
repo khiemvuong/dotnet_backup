@@ -1,24 +1,63 @@
-﻿@model List<BELibrary.Models.View.FilmView>
-<div class="movie-best__items">
-    @for (int i = 0; i < Model.Count; i++)
-    {
-        var item = Model[i];
-        <div class="movie-beta__item @(i >= 2 ? "hidden-xs hidden-sm" : "")">
-            <a href="/film/detail?id=@item.Id">
-                <img alt="@item.Name" src="@item.BannerUrl" />
-            </a>
-            <span class="best-rate">5.0</span>
-            <ul class="movie-beta__info">
-                <li><span class="best-voted">71 people voted today</span></li>
-                <li>
-                    <p class="movie__time">@item.Time</p>
-                    <p>@string.Join(" | ", item.FilmMovieTypes)</p>
-                    <p>38 comments</p>
-                </li>
-                <li class="last-block">
-                    <a href="/film/detail?id=@item.Id" class="slide__link">Xem thêm</a>
-                </li>
-            </ul>
-        </div>
-    }
+﻿@using BELibrary.Models.View
+
+@{
+    var bestChoices = (List<FilmView>)ViewBag.BestChoices;
+    var films = (List<FilmView>)ViewBag.Films;
+}
+
+<div class="movie-best">
+    <div class="col-sm-10 col-sm-offset-1 movie-best__rating">Lựa chọn ngay</div>
+    <div class="col-sm-12 change--col">
+        @{
+            int index = 0;
+            bool hiden = false;
+            foreach (var bestChoice in bestChoices)
+            {
+                <div class="movie-beta__item @(hiden?"hidden-xs hidden-sm":"")">
+                    <a href="/film/detail?id=@bestChoice.Id">
+                        <img alt='' src="@bestChoice.BannerUrl">
+                    </a>
+                    <span class="best-rate">5.0</span>
+
+                    <ul class="movie-beta__info">
+                        <li><span class="best-voted">71 people voted today</span></li>
+                        <li>
+                            <p class="movie__time">@bestChoice.Time</p>
+                            <p>
+                                @{
+                                    if (bestChoice.FilmMovieTypes.Count > 0)
+                                    {
+                                        var last = bestChoice.FilmMovieTypes.Last();
+                                        foreach (var ftype in bestChoice.FilmMovieTypes)
+                                        {
+                                            if (ftype.Equals(last))
+                                            {
+                                                @ftype
+                                            }
+                                            else
+                                            {
+                                                @(ftype + " | ");
+                                            }
+
+                                        }
+                                    }
+
+                                }
+                            </p>
+                            <p>38 comments</p>
+                        </li>
+                        <li class="last-block">
+                            <a href="/film/detail?id=@bestChoice.Id" class="slide__link">Xem thêm</a>
+                        </li>
+                    </ul>
+                </div>
+                index++;
+                if (index >= 2)
+                {
+                    hiden = true;
+                }
+            }
+        }
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 movie-best__check"> all movies now playing</div>
 </div>

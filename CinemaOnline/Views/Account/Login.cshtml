@@ -5,122 +5,193 @@
     var url = ViewBag.ReturnUrl;
 }
 
+<style>
+    .auth-section {
+        margin-top: 20px;
+    }
+
+    .auth-card {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+        .auth-card h4 {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+    .form-group label {
+        font-weight: 500;
+        color: #333;
+    }
+
+    .form-control {
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-size: 14px;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+    .btn-primary, .btn-success {
+        border-radius: 5px;
+        padding: 10px 15px;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover, .btn-success:hover {
+            background-color: #0056b3;
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+    .text-muted {
+        color: #666;
+    }
+
+        .text-muted:hover {
+            color: #333;
+            text-decoration: underline;
+        }
+
+    .breadcrumb {
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+        .breadcrumb li {
+            display: inline;
+            font-size: 14px;
+            color: white;
+        }
+
+            .breadcrumb li a {
+                color: #ddd;
+                text-decoration: none;
+            }
+
+            .breadcrumb li.active {
+                color: #aaa;
+            }
+
+</style>
 @section CSS {
     <link href="~/Content/plugin/notifyjs/lobibox.min.css" rel="stylesheet" />
 }
 <!-- Start main-content -->
 <div class="main-content" style="padding-top: 70px;">
-    <!-- Section: inner-header -->
+    <!-- Header Section -->
     <section class="inner-header divider parallax layer-overlay overlay-dark-5" data-bg-img="/Content/images/cinema/cinema-inner1.jpg">
         <div class="container pt-70 pb-20">
-            <!-- Section Content -->
-            <div class="section-content">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2 class="title text-white">Đăng nhập - Đăng ký</h2>
-                        <ol class="breadcrumb text-left text-black mt-10">
-                            <li><a href="/">Home</a></li>
-                            <li class="active text-gray-silver">Đăng nhập - đăng ký</li>
-                        </ol>
-                    </div>
-                </div>
+            <div class="section-content text-center">
+                <h2 class="title text-white">Đăng nhập - Đăng ký</h2>
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    <li class="active">Đăng nhập - Đăng ký</li>
+                </ol>
             </div>
         </div>
     </section>
 
-    <section>
+    <!-- Login & Register Section -->
+    <section class="auth-section">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 mb-40">
-                    <h4 class="text-gray mt-0 pt-5">Login</h4>
-                    <form name="login-form" class="clearfix" id="frmLogin">
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <label for="form_username_email">Tên đăng nhập</label>
-                                <input id="Username" name="form_username_email" class="form-control" type="text">
+                <!-- Login Card -->
+                <div class="col-md-5">
+                    <div class="auth-card shadow-lg p-4">
+                        <h4 class="text-center">Đăng nhập</h4>
+                        <form id="frmLogin">
+                            <div class="form-group">
+                                <label for="Username">Tên đăng nhập</label>
+                                <input id="Username" name="form_username_email" class="form-control" type="text" placeholder="Nhập tên đăng nhập">
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <label for="form_password">Mật khẩu</label>
-                                <input id="Password" name="form_password" class="form-control" type="password">
+                            <div class="form-group">
+                                <label for="Password">Mật khẩu</label>
+                                <input id="Password" name="form_password" class="form-control" type="password" placeholder="Nhập mật khẩu">
                             </div>
-                        </div>
-                        <div class="form-group pull-right mt-10">
-                            <button class="btn btn-primary btn-sm" id="btnLogin">Đăng nhập</button>
-                        </div>
-                        <div class="clear text-center pt-10">
-                            <a class="text-theme-colored font-weight-600 font-12" href="#">Quên mật khẩu</a>
-                        </div>
-                        @*<div class="clear text-center pt-10">
-                                <a class="btn btn-dark btn-lg btn-block no-border mt-15 mb-15" href="#" data-bg-color="#3b5998">Login with facebook</a>
-                                <a class="btn btn-dark btn-lg btn-block no-border" href="#" data-bg-color="#00acee">Login with twitter</a>
-                            </div>*@
-                    </form>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <button type="button" id="btnLogin" class="btn btn-primary btn-block">Đăng nhập</button>
+                            </div>
+                            <div class="text-center mt-3">
+                                <a href="#" class="text-muted">Quên mật khẩu?</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-md-7 col-md-offset-1">
-                    <form name="reg-form" class="register-form" method="post" id="frmReg">
-                        <div class="icon-box mb-0 p-0">
-                            <a href="#" class="icon icon-bordered icon-rounded icon-sm pull-left mb-0 mr-10">
-                                <i class="pe-7s-users"></i>
-                            </a>
-                            <h4 class="text-gray pt-10 mt-0 mb-30">Không có tài khoản? Đăng ký ngay. </h4>  <span id="regNotify"></span>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="form_name">Tên đầy đủ</label>
-                                <input name="FullName" class="form-control" type="text" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="form_gender">Giới tính</label>
-                                <select name="Gender" class="form-control" required>
-                                    <option value="" selected>---- Lựa chọn ----</option>
-                                    <option value="True">Nam</option>
-                                    <option value="False">Nữ</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="form_choose_username">Tên đăng nhập</label>
-                                <input id="form_choose_username" name="Username" class="form-control" type="text" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="form_chooseDateOfBirth">Ngày sinh</label>
-                                <input id="form_choose_DateOfBirth" name="DateOfBirth" class="form-control" type="date" required>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label>Email</label>
-                                <input name="Email" class="form-control" type="email" required>
+                <!-- Register Card -->
+                <div class="col-md-7">
+                    <div class="auth-card shadow-lg p-4">
+                        <h4 class="text-center">Đăng ký tài khoản</h4>
+                        <form id="frmReg">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="FullName">Tên đầy đủ</label>
+                                    <input id="FullName" name="FullName" class="form-control" type="text" placeholder="Nhập tên đầy đủ" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="Gender">Giới tính</label>
+                                    <select id="Gender" name="Gender" class="form-control" required>
+                                        <option value="" selected>---- Lựa chọn ----</option>
+                                        <option value="True">Nam</option>
+                                        <option value="False">Nữ</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label>Số điện thoại</label>
-                                <input name="Phone" class="form-control" type="text">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="Username">Tên đăng nhập</label>
+                                    <input id="Username" name="Username" class="form-control" type="text" placeholder="Nhập tên đăng nhập" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="DateOfBirth">Ngày sinh</label>
+                                    <input id="DateOfBirth" name="DateOfBirth" class="form-control" type="date" required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="form_choose_password">Mật khẩu</label>
-                                <input id="form_choose_password" name="Password" class="form-control" type="password" required>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="Email">Email</label>
+                                    <input id="Email" name="Email" class="form-control" type="email" placeholder="Nhập email" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="Phone">Số điện thoại</label>
+                                    <input id="Phone" name="Phone" class="form-control" type="text" placeholder="Nhập số điện thoại">
+                                </div>
                             </div>
-                            <div class="form-group col-md-6">
-                                <label>Nhập lại mật khẩu</label>
-                                <input id="form_re_enter_password" name="RePassword" class="form-control" type="password" required>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label for="Password">Mật khẩu</label>
+                                    <input id="Password" name="Password" class="form-control" type="password" placeholder="Nhập mật khẩu" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="RePassword">Nhập lại mật khẩu</label>
+                                    <input id="RePassword" name="RePassword" class="form-control" type="password" placeholder="Nhập lại mật khẩu" required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-success btn-lg btn-block mt-15" type="submit" id="btnReg">Đăng ký</button>
-                        </div>
-                    </form>
+                            <div class="form-group">
+                                <button type="submit" id="btnReg" class="btn btn-success btn-block">Đăng ký</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <input type="hidden" value="@url" name="ReturnUrl" id="rtUrl" />
             </div>
         </div>
     </section>
 </div>
+
 <!-- end main-content -->
 @section Scripts {
     <script src="~/Scripts/js/live/login.client.js"></script>

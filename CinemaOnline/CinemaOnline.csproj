@@ -2095,6 +2095,7 @@
     <Content Include="Content\alertify\alertify.min.css" />
     <Content Include="Content\alertify\alertify.rtl.css" />
     <Content Include="Content\alertify\alertify.rtl.min.css" />
+    <Content Include="Content\alertify\header.css" />
     <Content Include="Content\alertify\themes\bootstrap.css" />
     <Content Include="Content\alertify\themes\bootstrap.min.css" />
     <Content Include="Content\alertify\themes\bootstrap.rtl.css" />
@@ -2115,6 +2116,7 @@
     <Content Include="Content\css\external\idangerous.swiper.css" />
     <Content Include="Content\css\external\jquery.selectbox.css" />
     <Content Include="Content\css\external\magnific-popup.css" />
+    <Content Include="Content\css\footer.css" />
     <Content Include="Content\css\gozha-nav.css" />
     <Content Include="Content\css\img\select-icons.png" />
     <Content Include="Content\css\style3860.css" />

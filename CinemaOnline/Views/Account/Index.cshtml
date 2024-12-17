@@ -12,69 +12,140 @@
 
 <style>
 
-    .bg-black-333 {
-        background-color: darkseagreen;
-        margin-top: 10px;
-        padding-top: 10px;
-        padding-bottom: 32px;
+    /* Header Section */
+    .inner-header {
+        background-size: cover;
+        background-position: center;
         color: white;
     }
 
-    .full-name {
-        padding-top: 12px;
-        color: white;
+        .inner-header h2 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        .inner-header .breadcrumb {
+            background: transparent;
+            color: white;
+            padding: 0;
+            font-size: 0.9rem;
+        }
+
+    /* Profile Section */
+    .profile-section {
+        margin-top: 20px;
     }
 
-    .styled-icons li {
-        display: inline-block;
-        margin-bottom: 0;
-        margin-top: 0;
+    .profile-card {
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
     }
 
-    .styled-icons.icon-sm a {
-        font-size: 13px;
-        height: 30px;
-        line-height: 30px;
-        margin: 2px 7px 2px 0;
-        width: 30px;
-    }
-
-    .styled-icons.icon-circled a {
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
         border-radius: 50%;
+        margin: 0 auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .styled-icons.icon-gray a {
-        background-color: #eeeeee;
-        color: #555555;
-        display: block;
-        font-size: 18px;
-        height: 36px;
-        line-height: 36px;
-        width: 36px;
-    }
-
-    .mb-15 {
-        margin-bottom: 15px !important;
-    }
-
-    .mt-15 {
-        margin-top: 15px !important;
-    }
-
-    ul, ol {
+    .profile-info {
         list-style: none;
-        margin: 0;
         padding: 0;
+        margin: 20px 0;
     }
 
-    .fa {
-        display: inline-block;
-        font: normal normal normal 14px/1 FontAwesome;
-        font-size: inherit;
-        text-rendering: auto;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
+        .profile-info li {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+    .social-icons {
+        margin: 15px 0;
     }
+
+    .social-icon {
+        font-size: 1.2rem;
+        color: #555;
+        margin: 0 5px;
+        transition: color 0.3s ease;
+    }
+
+        .social-icon:hover {
+            color: #007bff;
+        }
+
+    /* Transaction History */
+    .widget-box {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .widget-header {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+
+    .transaction-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .transaction-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .transaction-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .transaction-item:last-child {
+        border-bottom: none;
+    }
+
+    .film-info, .time-info, .price-info {
+        font-size: 0.95rem;
+    }
+
+    .status-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        color: white;
+        font-size: 1rem;
+    }
+
+    .bg-success {
+        background-color: #28a745;
+    }
+
+    .bg-warning {
+        background-color: #ffc107;
+    }
+
+    .bg-danger {
+        background-color: #dc3545;
+    }
+
 </style>
 <style>
     .tickets-container .tickets-list .ticket-item .ticket-state i {
@@ -286,111 +357,97 @@
 <!-- Start main-content -->
 <div class="main-content" style="padding-top:85px">
 
-    <!-- Section: inner-header -->
+    <!-- Header Section -->
     <section class="inner-header divider parallax layer-overlay overlay-dark-5" data-bg-img="/Content/images/bg/bg3.jpg">
         <div class="container pt-70 pb-20">
-            <!-- Section Content -->
-            <div class="section-content">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2 class="full-name text-center">@user.FullName</h2>
-                        <ol class="breadcrumb text-left text-black mt-10">
-                            <li><a href="/">Trang chủ</a></li>
-                            <li class="active text-gray-silver">Tài khoản của tôi</li>
-                        </ol>
-                    </div>
-                </div>
+            <div class="section-content text-center">
+                <h2 class="full-name">@user.FullName</h2>
+                <ol class="breadcrumb">
+                    <li><a href="/">Trang chủ</a></li>
+                    <li class="active">Tài khoản của tôi</li>
+                </ol>
             </div>
         </div>
     </section>
 
-    <!-- Section: Doctor Details -->
-    <section class="">
+    <!-- Profile Section -->
+    <section class="profile-section">
         <div class="container">
-            <div class="section-content">
-                <div class="row">
-                    <div class="col-sx-12 col-sm-4 col-md-4">
-                        <div class="doctor-thumb">
-                            <img class="img img-responsive" src="@user.LinkAvata" alt="">
+            <div class="row">
+                <!-- Profile Sidebar -->
+                <div class="col-md-4">
+                    <div class="profile-card">
+                        <img src="@user.LinkAvata" alt="Avatar" class="profile-avatar img-responsive">
+                        <h4 class="text-center mt-20">@user.FullName</h4>
+                        <ul class="profile-info">
+                            <li><strong>Email:</strong> @user.Email</li>
+                            <li><strong>Phone:</strong> @user.Phone</li>
+                        </ul>
+                        <div class="social-icons text-center">
+                            <a href="#" class="social-icon"><i class="fa fa-facebook"></i></a>
+                            <a href="#" class="social-icon"><i class="fa fa-skype"></i></a>
+                            <a href="#" class="social-icon"><i class="fa fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fa fa-linkedin"></i></a>
                         </div>
-                        <div class="info p-20 bg-black-333">
-                            <h4 class="text-uppercase text-center">@user.FullName</h4>
-                            <ul class="list angle-double-right m-0 text-center">
-                                <li class="mt-0 text-gray-silver"><strong class="text-gray-lighter">Email</strong><br> @user.Email</li>
-                                <li class="text-gray-silver"><strong class="text-gray-lighter">Phone</strong><br> @user.Phone</li>
-                            </ul>
-                            <ul class="styled-icons icon-gray icon-circled icon-sm mt-15 mb-15 text-center">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-skype"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            </ul>
-                            <div class="text-center">
-                                <a class="btn btn-info btn-flat mt-10 mb-sm-30" href="/account/edit">Sửa</a>
-                                <a class="btn btn-danger btn-flat mt-10 mb-sm-30" href="/account/logout">Đăng xuất</a>
-                            </div>
+                        <div class="text-center">
+                            <a href="/account/edit" class="btn btn-primary btn-sm">Sửa</a>
+                            <a href="/account/logout" class="btn btn-danger btn-sm">Đăng xuất</a>
                         </div>
                     </div>
-                    <div class="col-md-8 col-sm-12 col-xs-12">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="widget-box">
-                                    <div class="widget-header bordered-bottom bordered-themesecondary">
-                                        <i class="widget-icon fa fa-tags themesecondary"></i>
-                                        <h5 class="widget-caption themesecondary">Lịch sử giao dịch</h5>
-                                    </div><!--Widget Header-->
-                                    <div class="widget-body">
-                                        <div class="widget-main no-padding">
-                                            <div class="tickets-container">
-                                                <ul class="tickets-list">
-                                                    @foreach (var item in Model)
-                                                    {
-                                                        <li class="ticket-item">
-                                                            <div class="row">
-                                                                <div class="ticket-user col-md-6 col-sm-12">
-                                                                    <i class="fa fa-ticket faa-shake animated"></i>
-                                                                    <span class="user-name">@item.FilmName</span>
-                                                                    <span class="user-at">tại</span>
-                                                                    <span class="user-company">@item.RoomName</span>
-                                                                </div>
-                                                                <div class="ticket-time  col-md-4 col-sm-6 col-xs-12">
-                                                                    <div class="divider hidden-md hidden-sm hidden-xs"></div>
-                                                                    <i class="fa fa-clock-o"></i>
-                                                                    <span class="time">@item.Time </span>
-                                                                </div>
-                                                                <div class="ticket-type  col-md-2 col-sm-6 col-xs-12">
-                                                                    <span class="divider hidden-xs"></span>
-                                                                    <span class="type">@item.TotalPrice VNĐ</span>
-                                                                </div>
-                                                                @if (item.Status == StatusOrder.Failure)
-                                                                {
-                                                                    <div class="ticket-state bg-darkorange">
-                                                                        <i class="fa fa-times"></i>
-                                                                    </div>
-                                                                }
-                                                                else if (item.Status == StatusOrder.Pending)
-                                                                {
+                </div>
 
-                                                                    <div class="ticket-state bg-darkorange">
-                                                                        <i class="fa fa-clock-o"></i>
-                                                                    </div>
-                                                                }
-                                                                else
-                                                                {
+                <!-- Transaction History -->
+                <div class="col-md-8">
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h5><i class="fa fa-tags"></i> Lịch sử giao dịch</h5>
+                        </div>
+                        <div class="widget-body">
+                            <ul class="transaction-list">
+                                @foreach (var item in Model)
+                                {
+                                    string statusClass = "";
+                                    string statusIcon = "";
 
-                                                                    <div class="ticket-state bg-palegreen">
-                                                                        <i class="fa fa-check"></i>
-                                                                    </div>
-                                                                }
-                                                            </div>
-                                                        </li>
-                                                    }
-                                                </ul>
+                                    if (item.Status == StatusOrder.Failure)
+                                    {
+                                        statusClass = "bg-danger";
+                                        statusIcon = "fa-times";
+                                    }
+                                    else if (item.Status == StatusOrder.Pending)
+                                    {
+                                        statusClass = "bg-warning";
+                                        statusIcon = "fa-clock-o";
+                                    }
+                                    else
+                                    {
+                                        statusClass = "bg-success";
+                                        statusIcon = "fa-check";
+                                    }
+
+                                    <li class="transaction-item">
+                                        <div class="transaction-details">
+                                            <div class="film-info">
+                                                <i class="fa fa-ticket"></i>
+                                                <span>@item.FilmName</span>
+                                                <span class="at">tại</span>
+                                                <span>@item.RoomName</span>
+                                            </div>
+                                            <div class="time-info">
+                                                <i class="fa fa-clock-o"></i>
+                                                <span>@item.Time</span>
+                                            </div>
+                                            <div class="price-info">
+                                                <span>@item.TotalPrice VNĐ</span>
+                                            </div>
+                                            <div class="status-info @statusClass">
+                                                <i class="fa @statusIcon"></i>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    </li>
+                                }
+
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -398,4 +455,5 @@
         </div>
     </section>
 </div>
+
 <!-- end main-content -->
