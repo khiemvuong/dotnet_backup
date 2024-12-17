@@ -66,34 +66,7 @@
         <div class="col-sm-10 col-sm-offset-1 movie-best__check">check all movies now playing</div>
     </div>
 
-    <div class="col-sm-12">
-        <div class="mega-select-present mega-select-top mega-select--full">
-            <form action="#" method="post" novalidate="novalidate" id="formSearch">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-3 col-sm-12">
-                                <input type="text" class="form-control search-slt" placeholder="Nhập từ khóa" id="keywords">
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-12 ">
-                                <select class="form-control search-slt" id="slFilter">
-                                    <option value="1" selected="">Tất cả</option>
-                                    <option value="filmName">Tên phim</option>
-                                    <option value="director">Đạo diễn</option>
-                                    <option value="actor">Diễn viên</option>
-                                    <option value="country">Quốc gia</option>
-                                    <option value="category">Thể loại</option>
-                                </select>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                <button type="submit" class="btn btn-danger wrn-btn" id="search">Search</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+    @Html.Partial("_SearchForm")
 
     <div class="clearfix"></div>
 
@@ -121,7 +94,7 @@
                                 <p class="movie__time">@(item.Time != null ? item.Time.ToString() : "") min</p>
 
                                 <p class="movie__option">
-                                    @{ 
+                                    @{
                                         if (item.FilmMovieTypes.Count > 0)
                                         {
                                             var last = item.FilmMovieTypes.Last();
@@ -129,15 +102,15 @@
                                             {
                                                 if (ftype.Equals(last))
                                                 {
-                                                <a href="/Film/Search?category=@ftype"> @ftype</a>
+                                                    <a href="/Film/Search?category=@ftype"> @ftype</a>
                                                 }
                                                 else
                                                 {
-                                                <a href="/Film/Search?category=@ftype">@(ftype + " | ")</a>
-                                                    }
+                                                    <a href="/Film/Search?category=@ftype">@(ftype + " | ")</a>
                                                 }
                                             }
                                         }
+                                    }
                                 </p>
                                 <div class="movie__rate">
                                     <div class="score"></div>
@@ -173,81 +146,11 @@
         </div>
     </div>
 
-    <div class="col-sm-12">
-        <h2 class="page-heading">Latest news</h2>
-
-        <div class="col-sm-4 similar-wrap col--remove">
-            <div class="post post--preview post--preview--wide">
-                <div class="post__image">
-                    <img alt='' src="~/Content/images/client-photo/post-thor.jpg">
-                    <div class="social social--position social--hide">
-                        <span class="social__name">Share:</span>
-                        <a href='#' class="social__variant social--first fa fa-facebook"></a>
-                        <a href='#' class="social__variant social--second fa fa-twitter"></a>
-                        <a href='#' class="social__variant social--third fa fa-vk"></a>
-                    </div>
-                </div>
-                <p class="post__date">22 October 2013 </p>
-                <a href="single-page-left.html" class="post__title">"Thor: The Dark World" - World Premiere</a>
-                <a href="single-page-left.html" class="btn read-more post--btn">read more</a>
-            </div>
-        </div>
-        <div class="col-sm-4 similar-wrap col--remove">
-            <div class="post post--preview post--preview--wide">
-                <div class="post__image">
-                    <img alt='' src="~/Content/images/client-photo/post-annual.jpg">
-                    <div class="social social--position social--hide">
-                        <span class="social__name">Share:</span>
-                        <a href='#' class="social__variant social--first fa fa-facebook"></a>
-                        <a href='#' class="social__variant social--second fa fa-twitter"></a>
-                        <a href='#' class="social__variant social--third fa fa-vk"></a>
-                    </div>
-                </div>
-                <p class="post__date">22 October 2013 </p>
-                <a href="single-page-left.html" class="post__title">30th Annual Night Of Stars Presented By The Fashion Group International</a>
-                <a href="single-page-left.html" class="btn read-more post--btn">read more</a>
-            </div>
-        </div>
-        <div class="col-sm-4 similar-wrap col--remove">
-            <div class="post post--preview post--preview--wide">
-                <div class="post__image">
-                    <img alt='' src="~/Content/images/client-photo/post-awards.jpg">
-                    <div class="social social--position social--hide">
-                        <span class="social__name">Share:</span>
-                        <a href='#' class="social__variant social--first fa fa-facebook"></a>
-                        <a href='#' class="social__variant social--second fa fa-twitter"></a>
-                        <a href='#' class="social__variant social--third fa fa-vk"></a>
-                    </div>
-                </div>
-                <p class="post__date">22 October 2013 </p>
-                <a href="single-page-left.html" class="post__title">Hollywood Film Awards 2013</a>
-                <a href="single-page-left.html" class="btn read-more post--btn">read more</a>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("_LatestNews")
 </section>
 @section Scripts {
+    <script src="~/Scripts/js/home/home.js"></script>
 
     <script src="~/Scripts/js/base/click.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-              $('#search').click(function () {
-                $('#formSearch').submit();
-            });
-            $('#formSearch').submit(function (e) {
-                e.preventDefault();
-                utils.loading();
-                let url = "";
-                const filter = $("#slFilter").val();
-                const keywords = $("#keywords").val();
-                if (filter === "1") {
-                    url = `/Film/Search?keyword=${keywords}`;
-                } else {
-                    url = `/Film/Search?${filter}=${keywords}`;
-                }
-                window.location.href = url;
-            });
-        });
-    </script>
+
 }
- 

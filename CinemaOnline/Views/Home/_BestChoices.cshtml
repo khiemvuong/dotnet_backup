@@ -1,0 +1,24 @@
+﻿@model List<BELibrary.Models.View.FilmView>
+<div class="movie-best__items">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        var item = Model[i];
+        <div class="movie-beta__item @(i >= 2 ? "hidden-xs hidden-sm" : "")">
+            <a href="/film/detail?id=@item.Id">
+                <img alt="@item.Name" src="@item.BannerUrl" />
+            </a>
+            <span class="best-rate">5.0</span>
+            <ul class="movie-beta__info">
+                <li><span class="best-voted">71 people voted today</span></li>
+                <li>
+                    <p class="movie__time">@item.Time</p>
+                    <p>@string.Join(" | ", item.FilmMovieTypes)</p>
+                    <p>38 comments</p>
+                </li>
+                <li class="last-block">
+                    <a href="/film/detail?id=@item.Id" class="slide__link">Xem thêm</a>
+                </li>
+            </ul>
+        </div>
+    }
+</div>

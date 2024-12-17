@@ -2526,6 +2526,7 @@
     <Content Include="Scripts\jquery.signalR-2.4.1.min.js" />
     <Content Include="Scripts\js\base\click.js" />
     <Content Include="Scripts\js\base\common.js" />
+    <Content Include="Scripts\js\home\home.js" />
     <Content Include="Scripts\js\live\edit.account.js" />
     <Content Include="Scripts\js\live\login.client.js" />
     <Content Include="Views\Account\Edit.cshtml" />
@@ -2635,6 +2636,11 @@
     <Content Include="Views\Gallery\Index.cshtml" />
     <Content Include="Views\Film\Search.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\_BestChoices.cshtml" />
+    <Content Include="Views\Home\_SearchForm.cshtml" />
+    <Content Include="Views\Home\_MovieList.cshtml" />
+    <Content Include="Views\Home\_SlidebarBanners.cshtml" />
+    <Content Include="Views\Home\_LatestNews.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
