@@ -50,3 +50,49 @@
         </div>
     </section>
 </footer>
+<style>
+    .social {
+        display: flex;
+        gap: 10px;
+    }
+
+    .social__variant {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+        color: #fff; 
+        border-radius: 50%; 
+        text-decoration: none; 
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .social__variant:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Màu sắc riêng cho từng mạng xã hội */
+        .social__variant.fa-facebook {
+            background-color: #3b5998; /* Facebook xanh dương */
+        }
+
+        .social__variant.fa-twitter {
+            background-color: #1DA1F2; /* Twitter xanh nhạt */
+        }
+
+        .social__variant.fa-instagram {
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); /* Instagram gradient */
+        }
+
+        .social__variant.fa-youtube {
+            background-color: #FF0000; /* YouTube đỏ */
+        }
+
+        .social__variant.fa-linkedin {
+            background-color: #0077B5; /* LinkedIn xanh đậm */
+        }
+
+</style>

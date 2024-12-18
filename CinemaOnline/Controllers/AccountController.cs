@@ -209,7 +209,7 @@ namespace CinemaOnline.Controllers
 
                         us.IsDelete = false;
                         us.Password = passwordCryptor;
-                        us.LinkAvata = us.Gender ? "/Content/images/team/2.png" : "/Content/images/team/3.png";
+                        us.LinkAvata = "/Content/images/team/anonymous.png";
                         us.Id = Guid.NewGuid();
                         workScope.Users.Add(us);
                         workScope.Complete();
