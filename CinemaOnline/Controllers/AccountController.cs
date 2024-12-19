@@ -191,60 +191,66 @@ namespace CinemaOnline.Controllers
 
         [HttpPost]
         [ValidateInput(true)]
-        public JsonResult Register(User us, string rePassword)
+        public JsonResult Register(User user, string rePassword)
         {
-            if (us.Password != rePassword)
+            if (user.Password != rePassword)
             {
                 return Json(new { status = false, mess = "Mật khẩu không khớp" });
             }
-            using (var workScope = new UnitOfWork(new CinemaOnlineDbContext()))
+
+            using (var unitOfWork = new UnitOfWork(new CinemaOnlineDbContext()))
             {
-                var account = workScope.Users.FirstOrDefault(x => x.Username.ToLower() == us.Username.ToLower());
-                if (account == null)
-                {
-                    try
-                    {
-                        var passwordFactory = us.Password + VariableExtensions.KeyCryptorClient;
-                        var passwordCryptor = CryptorEngine.Encrypt(passwordFactory, true);
+                // Kiểm tra xem username đã tồn tại hay chưa
+                var existingUser = unitOfWork.Users
+                    .FirstOrDefault(x => x.Username.Equals(user.Username, StringComparison.OrdinalIgnoreCase));
 
-                        us.IsDelete = false;
-                        us.Password = passwordCryptor;
-                        us.LinkAvata = "/Content/images/team/anonymous.png";
-                        us.Id = Guid.NewGuid();
-                        workScope.Users.Add(us);
-                        workScope.Complete();
-
-                        //Login luon
-                        if (HttpContext.Request.Url != null)
-                        {
-                            var host = HttpContext.Request.Url.Authority;
-
-                            var cookieClient = us.Username + "|" + host.ToLower() + "|" + us.Id;
-                            var decodeCookieClient = CryptorEngine.Encrypt(cookieClient, true);
-                            var userCookie = new HttpCookie(CookiesKey.Client)
-                            {
-                                Value = decodeCookieClient,
-                                Expires = DateTime.Now.AddDays(30)
-                            };
-                            HttpContext.Response.Cookies.Add(userCookie);
-                            return Json(new { status = true, mess = "Đăng ký thành công" });
-                        }
-                        else
-                        {
-                            return Json(new { status = false, mess = "Thêm không thành công" });
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        return Json(new { status = false, mess = "Thêm không thành công" });
-                    }
-                }
-                else
+                if (existingUser != null)
                 {
                     return Json(new { status = false, mess = "Username không khả dụng" });
                 }
+
+                try
+                {
+                    // Mã hóa mật khẩu
+                    var passwordFactory = user.Password + VariableExtensions.KeyCryptorClient;
+                    user.Password = CryptorEngine.Encrypt(passwordFactory, true);
+
+                    // Gán các giá trị mặc định
+                    user.IsDelete = false;
+                    user.LinkAvata = "/Content/images/team/anonymous.png";
+                    user.Id = Guid.NewGuid();
+
+                    // Thêm người dùng mới
+                    unitOfWork.Users.Add(user);
+                    unitOfWork.Complete();
+
+                    // Xử lý cookie để đăng nhập
+                    var url = HttpContext.Request.Url;
+                    if (url != null)
+                    {
+                        var host = url.Authority;
+                        var cookieData = $"{user.Username}|{host.ToLower()}|{user.Id}";
+                        var encryptedCookie = CryptorEngine.Encrypt(cookieData, true);
+
+                        var userCookie = new HttpCookie(CookiesKey.Client)
+                        {
+                            Value = encryptedCookie,
+                            Expires = DateTime.Now.AddDays(30)
+                        };
+
+                        HttpContext.Response.Cookies.Add(userCookie);
+                        return Json(new { status = true, mess = "Đăng ký thành công" });
+                    }
+
+                    return Json(new { status = false, mess = "Thêm không thành công" });
+                }
+                catch
+                {
+                    return Json(new { status = false, mess = "Thêm không thành công" });
+                }
             }
         }
+
 
         [HttpPost]
         [ValidateInput(true)]

@@ -221,35 +221,52 @@ namespace CinemaOnline.Controllers
 
         public ActionResult ReserveSeat(Guid movieCalendarId)
         {
-            using (var workScope = new UnitOfWork(new CinemaOnlineDbContext()))
+            using (var unitOfWork = new UnitOfWork(new CinemaOnlineDbContext()))
             {
-                var seatTypes = workScope.SeatTypes.GetAll().ToList();
-                var movieCalendar = workScope.MovieCalendars.Include(mc => mc.Film).FirstOrDefault(mc => mc.Id == movieCalendarId);
-                if (movieCalendar == default)
+                // Lấy danh sách loại ghế
+                var seatTypes = unitOfWork.SeatTypes.GetAll().ToList();
+
+                // Tìm lịch chiếu phim
+                var movieCalendar = unitOfWork.MovieCalendars
+                    .Include(mc => mc.Film)
+                    .FirstOrDefault(mc => mc.Id == movieCalendarId)
+                    ?? throw new Exception("Lịch chiếu không tồn tại.");
+
+                // Lấy thông tin phòng chiếu và ghế chưa bị xóa
+                var cinemaRoom = unitOfWork.CinemaRooms
+                    .IncludeFilter(cr => cr.Seats.Where(s => !s.IsDelete))
+                    .FirstOrDefault(cr => !cr.IsDelete && cr.Id == movieCalendar.CinemaRoomId);
+
+                // Lấy danh sách ghế đã được đặt
+                var bookedSeats = unitOfWork.Orders
+                    .Query(order => order.MovieCalendarId == movieCalendar.Id)
+                    .SelectMany(order => unitOfWork.OrderDetails.Query(od => od.OrderId == order.Id).Select(od => od.SeatId))
+                    .ToList();
+
+                // Chuẩn bị thông tin đặt vé
+                var currentBooking = new ReserveTicketDto
                 {
-                    throw new Exception();
-                }
-                var cinemaRoom = workScope.CinemaRooms
-                    .IncludeFilter(cr => cr.Seats.Where(s => s.IsDelete == false))
-                    .FirstOrDefault(cr => cr.IsDelete == false && cr.Id == movieCalendar.CinemaRoomId);
+                    UserId = GetCurrentUser().Id,
+                    SeatIds = bookedSeats,
+                    MovieCalendarId = movieCalendarId,
+                    FilmName = movieCalendar.Film.Name,
+                    FilmId = movieCalendar.FilmId
+                };
 
-                var seatHasBook = new List<Guid>();
-
-                var bookings = workScope.Orders.Query(x => x.MovieCalendarId == movieCalendar.Id).ToList();
-
-                foreach (var booking in bookings)
+                // Tạo đối tượng kết quả để truyền vào View
+                var result = new ReserveSeatView
                 {
-                    var seats = workScope.OrderDetails.Query(x => x.OrderId == booking.Id)
-                        .Select(x => x.SeatId).ToList();
-                    seatHasBook.AddRange(seats);
-                }
+                    Price = movieCalendar.Price,
+                    CinemaRoom = cinemaRoom,
+                    CurrentBooking = currentBooking
+                };
 
-                var currentBooking = new ReserveTicketDto { UserId = GetCurrentUser().Id, SeatIds = seatHasBook, MovieCalendarId = movieCalendarId, FilmName = movieCalendar.Film.Name, FilmId = movieCalendar.FilmId };
-                var result = new ReserveSeatView { Price = movieCalendar.Price, CinemaRoom = cinemaRoom, CurrentBooking = currentBooking };
+                // Truyền loại ghế vào ViewBag và trả về View
                 ViewBag.SeatTypes = seatTypes;
                 return View(result);
             }
         }
+
 
         public ActionResult SelectTopping(string jsonData)
         {
